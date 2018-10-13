@@ -36,10 +36,8 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      - run:
-          filters:
-            branches:
-              only: master
-          name: Deploy master to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/continuous-integration.git master
+      deployment:
+        staging:
+          branch: master
+          heroku:
+            appname: aqueous-woodland-75898
