@@ -44,7 +44,8 @@ jobs:
       - run:
           name: run tests
           command: |
-            RAILS_ENV=production bundle exec rspec --format RspecJunitFormatter -o /tmp/test-results/rspec.xml
+            mkdir /tmp/test-results
+            bundle exec rspec --format RspecJunitFormatter -o /tmp/test-results/rspec.xml
 
       # collect reports
       - store_test_results:
