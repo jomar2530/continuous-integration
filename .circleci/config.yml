@@ -37,18 +37,18 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Database setup
-      - run:
-          name: Setup Rails Database
-          command: |
-            RAILS_ENV=continous_integration bundle exec rake db:drop
-            RAILS_ENV=continous_integration bundle exec rake db:setup
-  
+      - run: RAILS_ENV=continous_integration bundle exec rake db:drop
+      - run: RAILS_ENV=continous_integration bundle exec rake db:setup
+
       # run tests!
       - run:
-          name: Run Rspec
+          name: run tests
           command: |
             RAILS_ENV=continous_integration bundle exec rspec --format RspecJunitFormatter -o /tmp/test-results/rspec.xml
 
       # collect reports
       - store_test_results:
-        path: /tmp/test-results
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
